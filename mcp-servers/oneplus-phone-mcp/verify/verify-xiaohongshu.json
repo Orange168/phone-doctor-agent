@@ -1,0 +1,34 @@
+{
+  "scenario": "xiaohongshu",
+  "description": "小红书自动浏览、点赞、评论、关注、私信",
+  "mcp_tool": "xiaohongshu",
+  "target_package": "com.xingin.xhs",
+  "preconditions": [
+    "设备在线",
+    "小红书已安装并登录",
+    "反检测栈已就绪"
+  ],
+  "mcp_request": {
+    "package": "com.xingin.xhs",
+    "actions": ["browse", "like", "comment", "follow"],
+    "target_keywords": ["Android", "手机优化", "系统开发"],
+    "duration_seconds": 180,
+    "auto_reply": true,
+    "reply_template": "感谢关注，已私信您更多信息～"
+  },
+  "success_criteria": {
+    "xhs_alive_after": true,
+    "risk_triggered": false,
+    "like_count": ">0",
+    "comment_count": ">0"
+  },
+  "failure_modes": [
+    "小红书被限制/封号",
+    "触发风控提示",
+    "互动数为 0",
+    "MCP 调用失败"
+  ],
+  "artifacts": {
+    "report_json": "reports/verify-xiaohongshu-*.json"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "oneplus-phone-mcp",
+  "version": "1.0.0",
+  "description": "MCP server exposing OnePlus PGP110 phone capabilities (screen capture, layout tree, input injection, remote share, device info) to agents.",
+  "type": "module",
+  "main": "src/server.js",
+  "bin": {
+    "oneplus-phone-mcp": "src/server.js"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "verify": "bash scripts/verify-mcp.sh",
+    "verify-offline": "bash scripts/verify-offline.sh"
+  },
+  "keywords": [
+    "mcp",
+    "oneplus",
+    "scrcpy",
+    "android",
+    "agent"
+  ],
+  "author": "linzhi",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0"
+  }
+}

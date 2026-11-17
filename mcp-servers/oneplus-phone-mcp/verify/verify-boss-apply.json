@@ -1,0 +1,33 @@
+{
+  "scenario": "boss_apply",
+  "description": "Boss直聘自动投递简历+回复HR消息",
+  "mcp_tool": "boss_apply",
+  "target_package": "com.hpbr.bosszhipin",
+  "preconditions": [
+    "设备在线",
+    "Boss直聘已安装并登录",
+    "已绑定简历",
+    "反检测栈已就绪"
+  ],
+  "mcp_request": {
+    "package": "com.hpbr.bosszhipin",
+    "keywords": ["Android开发", "系统工程师", "驱动开发"],
+    "max_apply": 10,
+    "auto_reply": true,
+    "reply_template": "您好，我对这个职位很感兴趣，方便详细聊聊吗？"
+  },
+  "success_criteria": {
+    "boss_alive_after": true,
+    "risk_triggered": false,
+    "apply_count": ">0"
+  },
+  "failure_modes": [
+    "Boss被检测限制/封号",
+    "触发风控提示",
+    "投递数为 0（关键词不匹配/已投递）",
+    "MCP 调用失败"
+  ],
+  "artifacts": {
+    "report_json": "reports/verify-boss-apply-*.json"
+  }
+}

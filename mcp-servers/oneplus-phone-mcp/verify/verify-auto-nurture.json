@@ -1,0 +1,30 @@
+{
+  "scenario": "auto_nurture",
+  "description": "抖音自动养号：自动浏览、点赞、评论，模拟日常活跃，不触发风控",
+  "mcp_tool": "auto_nurture",
+  "target_package": "com.ss.android.ugc.aweme",
+  "preconditions": [
+    "设备在线 (adb -s 3902f377 get-state)",
+    "抖音已安装",
+    "已 Root + LSPosed + Frida spawn 注入可用"
+  ],
+  "mcp_request": {
+    "package": "com.ss.android.ugc.aweme",
+    "actions": ["browse_feed", "like_random", "comment_generic"],
+    "duration_seconds": 300,
+    "randomize": true
+  },
+  "success_criteria": {
+    "douyin_alive_after": true,
+    "risk_triggered": false,
+    "mcp_status": "success"
+  },
+  "failure_modes": [
+    "抖音进程被杀（检测触发自杀）",
+    "logcat 出现风控/验证码/操作频繁关键词",
+    "MCP 调用失败"
+  ],
+  "artifacts": {
+    "report_json": "reports/verify-auto-nurture-*.json"
+  }
+}

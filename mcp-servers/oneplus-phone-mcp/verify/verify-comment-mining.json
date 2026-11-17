@@ -1,0 +1,34 @@
+{
+  "scenario": "comment_mining",
+  "description": "抖音评论区挖掘客户：识别意向评论、自动关注、发送留言",
+  "mcp_tool": "comment_mining",
+  "target_package": "com.ss.android.ugc.aweme",
+  "preconditions": [
+    "设备在线",
+    "抖音已安装",
+    "反检测栈已就绪（KernelSU + Susfs + HMA）"
+  ],
+  "mcp_request": {
+    "package": "com.ss.android.ugc.aweme",
+    "target_keywords": ["求教程", "多少钱", "怎么买", "联系方式"],
+    "max_comments": 50,
+    "auto_follow": true,
+    "auto_reply": true,
+    "reply_template": "您好，已私信您详细信息，请查收～"
+  },
+  "success_criteria": {
+    "douyin_alive_after": true,
+    "risk_triggered": false,
+    "follow_count": ">0",
+    "reply_count": ">0"
+  },
+  "failure_modes": [
+    "抖音被检测杀死",
+    "触发风控验证码/操作限制",
+    "关注/留言数为 0（关键词未匹配）",
+    "MCP 调用失败"
+  ],
+  "artifacts": {
+    "report_json": "reports/verify-comment-mining-*.json"
+  }
+}
