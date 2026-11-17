@@ -26,7 +26,7 @@ echo "=== phone-doctor-agent 验证 ==="
 [ -L "$HOME/.hermes/profiles/$PROFILE_NAME" ] && check "profile 软链存在" 0 || check "profile 软链存在" 1
 
 # 2. 核心文件
-for f in profile/config.yaml profile/skills/device-perception/SKILL.md profile/skills/goal-manager/SKILL.md profile/skills/cron-optimizer/SKILL.md profile/cron/perception.yaml profile/cron/cron-optimizer.yaml device-registry.json; do
+for f in profile/config.yaml profile/skills/device-perception/SKILL.md profile/skills/goal-manager/SKILL.md profile/skills/cron-optimizer/SKILL.md profile/skills/frida-ssl-bypass/SKILL.md profile/skills/adb-channel-recovery/SKILL.md profile/cron/perception.yaml profile/cron/cron-optimizer.yaml device-registry.json docs/douyin-detection-map.md; do
   [ -f "$PROJECT_DIR/$f" ] && check "文件 $f" 0 || check "文件 $f" 1
 done
 
