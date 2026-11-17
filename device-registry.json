@@ -1,0 +1,36 @@
+{
+  "version": "1.0",
+  "updated": "2026-11-17",
+  "description": "手机分身管家设备注册表 — 管家 agent 的事实源，描述所有纳管设备",
+  "devices": [
+    {
+      "id": "pgp110",
+      "name": "OnePlus PGP110 (Ace Pro / 10T)",
+      "serial": "3902f377",
+      "model": "pgp110",
+      "platform": "Android 15 (SDK 35) / OxygenOS",
+      "kernel": "5.10.236-android12-9-gki",
+      "root": "KernelSU 3.2.5",
+      "mcp_server": "oneplus-phone-mcp",
+      "capabilities": ["basic", "root", "termux", "xposed", "frida", "scrcpy"],
+      "online": true,
+      "notes": "主力设备，完整反检测栈 + frida + LSPosed",
+      "constraints": {
+        "kernelsu_locked": true,
+        "no_bootloader_unlock": true,
+        "antidetect_stack": true
+      }
+    }
+  ],
+  "device_groups": {
+    "default": ["pgp110"]
+  },
+  "capabilities": {
+    "basic": ["capture_screen", "get_layout_tree", "tap", "swipe", "input_text", "press_key", "device_status", "get_device_info", "get_foreground_app"],
+    "root": ["run_root", "pm_list", "ps_list", "fs_read", "fs_write", "setprop", "resetprop"],
+    "termux": ["termux_run", "termux_sshd_status", "termux_apt_install"],
+    "xposed": ["xposed_status", "xposed_modules", "xposed_hooks"],
+    "frida": ["frida_status", "frida_inject", "frida_ps"],
+    "scrcpy": ["start_share", "stop_share", "share_status"]
+  }
+}

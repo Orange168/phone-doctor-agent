@@ -1,0 +1,9 @@
+# 感知定时任务 — 每 15 分钟巡检所有设备
+# 使用轻量模型 tmp-flash（高频，低成本）
+name: perception
+schedule: "*/15 * * * *"
+skills:
+  - device-perception
+model: tmp-flash
+enabled: true
+description: 定时巡检设备状态，发现异常写入目标栈

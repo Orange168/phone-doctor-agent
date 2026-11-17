@@ -1,0 +1,60 @@
+# phone-doctor-agent Profile 配置
+# 手机分身管家 agent 的 Hermes profile 配置
+
+# 模型路由：按任务类型选择模型（用户锁定 tmp / tmp-flash）
+models:
+  # 默认轻量模型（高频简单任务）
+  default: tmp-flash
+  # 按 skill 路由
+  routing:
+    perception: tmp-flash      # 感知层：巡检/状态收集（高频，轻量）
+    planning: tmp              # 规划层：目标拆解/任务编排（复杂，主力）
+    optimization: tmp          # 优化层：cron 调整/性能分析（复杂，主力）
+    execution: tmp-flash       # 执行层：简单工具调用
+
+# 工具配置
+tools:
+  # MCP 服务器（设备能力）
+  mcp_servers:
+    - name: oneplus-phone-mcp
+      command: node
+      args:
+        - /home/master/sourceCode/rk_356x_a12/code/oneplus-phone-mcp/src/server.js
+      connect_timeout: 30
+    # 未来扩展：
+    # - name: rk3326-mcp
+    #   command: node
+    #   args:
+    #     - /home/master/sourceCode/phone-doctor-agent/mcp-servers/rk3326-mcp/src/server.js
+    #   connect_timeout: 30
+
+  # 内置工具开关
+  builtin:
+    memory: true          # agentmemory（设备状态/目标栈）
+    skill_manage: true    # 技能沉淀
+    delegate_task: false  # 管家不再委派（它是被委派的）
+    cronjob: true         # 自主管理 cron
+
+# 记忆配置
+memory:
+  # agentmemory 用作：设备状态 / 目标栈 / 巡检历史 / cron 优化依据
+  enabled: true
+  retention_days: 30     # 巡检历史保留 30 天
+
+# 安全边界（护栏）
+guardrails:
+  # A3 级操作（需用户确认）
+  require_confirmation:
+    - resetprop            # 改 ro. 属性（影响反检测栈）
+    - device_reset_fingerprint  # 一键新机
+    - pm_disable           # 禁用系统应用
+    - format_partition     # 格式化分区
+  # 禁止操作（硬护栏，永不执行）
+  forbidden:
+    - bootloader_unlock    # 会破坏 AVB/反检测
+    - flash_partition      # 分区写入（无回滚证据）
+    - wipe_data            # 清数据
+  # 操作前自动备份
+  auto_backup_before:
+    - pm_clear             # 清应用数据前先 backup
+    - settings_put         # 改系统设置前记录原值

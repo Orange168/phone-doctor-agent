@@ -1,0 +1,9 @@
+# Cron 自优化任务 — 每天凌晨 3 点分析历史，调整巡检频率
+# 使用主力模型 tmp（需要推理分析）
+name: cron-optimizer
+schedule: "0 3 * * *"
+skills:
+  - cron-optimizer
+model: tmp
+enabled: true
+description: 分析巡检历史，动态调整感知频率
